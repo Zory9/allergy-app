@@ -1,0 +1,14 @@
+<kendo-bottomnavigation
+    *ngIf="isLoggedIn"
+    class="k-d-lg-none k-d-md-none k-d-sm-flex"
+    [items]="items"
+    positionMode="fixed"
+    [border]="true"
+    fill="solid"
+    (select)="onSelect($event)"
+>
+    <ng-template kendoBottomNavigationItemTemplate let-item>
+        <kendo-svgicon [icon]="item.svgIcon" size="medium"></kendo-svgicon>
+        <span>{{ item.text }}</span>
+    </ng-template>
+</kendo-bottomnavigation>

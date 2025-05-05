@@ -1,0 +1,48 @@
+<kendo-card class="recipe-card !k-w-full k-m-auto">
+    <kendo-card-body class="k-pb-0">
+        <h3 class="recipe-name"> {{ name }} </h3>
+        <div class="recipe-meta">
+            <span class="safety-badge">Безопасно за теб</span>
+            <span class="time-info">
+                <kendo-svgicon [icon]="clockIcon" size="medium" class="k-mr-1 k-align-text-top"></kendo-svgicon>
+                <i>{{ cookTime }}</i>
+            </span>
+        </div>
+        <p class="short-desc">{{ shortDesc }}</p>
+        <hr kendoCardSeparator />
+        <div class="ingredient-wrap">
+            <h3 class="ingredient-title">Съставки и заместители</h3>
+            <ul class="recipe-ingredients">
+                <li *ngFor="let ing of ingredients">
+                    <div class="ingredient">
+                        <span class="quantity"> {{ ing.quantity }} </span>
+                        <span *ngIf="ing.isAllergen" class="allergen"> <strong>{{ ing.original }}</strong>
+                            <kendo-svgicon [icon]="warningTriangleIcon" size="medium" themeColor="warning"
+                                class="k-ml-1 k-align-text-top"></kendo-svgicon></span>
+                        <span *ngIf="!ing.isAllergen"> {{ ing.original }} <kendo-svgicon [icon]="checkCircleIcon"
+                                size="medium" themeColor="success" class="k-align-text-bottom"></kendo-svgicon></span>
+                        <div *ngIf="ing.replacement" class="replacement">
+                            <kendo-svgicon [icon]="arrowDownLeftIcon" size="large" class="k-flip-h"></kendo-svgicon>
+                            <span class="replacement-suggestion">Заместител: {{ ing.replacement }}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="recipe-wrap" *ngIf="expanded">
+            <h3 class="recipe-title">Стъпки за приготвяне</h3>
+            <ul class="recipe-steps">
+                <li *ngFor="let step of parsedSteps">
+                    {{ step }}
+                </li>
+            </ul>
+        </div>
+    </kendo-card-body>
+    <hr kendoCardSeparator />
+    <kendo-card-actions layout="stretched">
+        <button kendoButton fillMode="flat" themeColor="primary" size="large" (click)="toggleRecipe()">
+            <kendo-svg-icon [icon]="moreIcon" size="large"></kendo-svg-icon>
+            {{ btnText }}
+        </button>
+    </kendo-card-actions>
+</kendo-card>

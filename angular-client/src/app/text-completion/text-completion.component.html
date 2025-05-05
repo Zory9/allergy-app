@@ -1,0 +1,20 @@
+<kendo-aiprompt class="text-completion" [(activeView)]="activeView" [promptOutputs]="promptOutputs"
+    (promptRequest)="onPromptRequest($event)" [promptSuggestions]="promptSuggestions">
+    <kendo-aiprompt-prompt-view></kendo-aiprompt-prompt-view>
+    <kendo-aiprompt-custom-view [viewTemplate]="loadingTemplate">
+    </kendo-aiprompt-custom-view>
+    <kendo-aiprompt-output-view>
+    </kendo-aiprompt-output-view>
+    <kendo-aiprompt-messages promptView="Задай въпрос" outputView="Отговор" generateOutput="Генерирай отговор"
+        promptPlaceholder="Попитай въпрос относно храната, която те интересува..." retryGeneration="Опитай пак"
+        outputTitle="" outputRetryTitle="Твоят отговор" copyOutput="Копирай отговор" promptSuggestions="Предложения">
+    </kendo-aiprompt-messages>
+</kendo-aiprompt>
+
+<ng-template #loadingTemplate>
+    <div *ngIf="loading" class="loader-container">
+        <kendo-loader type="pulsing" size="large"></kendo-loader>
+        <p class="k-color-subtle k-grid-cols-1  k-font-size-md !k-m-0">Изчакай малко, докато AI генерира подходящ
+            отговор за теб...</p>
+    </div>
+</ng-template>

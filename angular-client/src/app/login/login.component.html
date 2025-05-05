@@ -1,0 +1,41 @@
+<div class="form-wrapper">
+    <form class="k-d-flex k-flex-col k-gap-3.5 k-form k-form-md" [formGroup]="loginForm" (ngSubmit)="login()">
+        <fieldset class="k-form-fieldset">
+            <legend class="k-form-legend">Влизане</legend>
+
+            <kendo-formfield>
+                <kendo-label labelCssClass="k-form-label" [for]="email" text="Имейл"></kendo-label>
+                <kendo-textbox formControlName="email" [clearButton]="true" #email></kendo-textbox>
+                <kendo-formerror
+                *ngIf="loginForm.controls['email'].errors?.['required'] || loginForm.controls['email'].errors?.['email']">Моля,
+                въведи валиден
+                имейл.</kendo-formerror>
+            </kendo-formfield>
+
+            <kendo-formfield>
+                <kendo-label labelCssClass="k-form-label" [for]="password" text="Парола"></kendo-label>
+                <kendo-textbox formControlName="password" #password [type]="passwordType" [clearButton]="true">
+                    <ng-template kendoTextBoxSuffixTemplate>
+                        <kendo-textbox-separator></kendo-textbox-separator>
+                        <button
+                            type="button"
+                            kendoButton
+                            fillMode="clear"
+                            [svgIcon]="eyeIcon"
+                            (click)="toggleVisibility()"
+                        ></button>
+                    </ng-template>
+                </kendo-textbox>
+                <kendo-formerror *ngIf="loginForm.controls['password'].errors?.['required']">Моля, въведи
+                    парола.</kendo-formerror>
+            </kendo-formfield>
+
+            <div class="k-form-buttons k-buttons-stretched">
+                <button kendoButton themeColor="primary" type="submit">
+                    Влизане
+                </button>
+                <button type="button" kendoButton (click)="clearForm()">Изчисти</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

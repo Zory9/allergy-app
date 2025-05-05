@@ -1,0 +1,81 @@
+<div
+    class="k-d-flex k-flex-col k-gap-8 k-align-items-center k-col-span-6 k-col-span-lg-6 k-col-span-xxl-4 k-col-start-sm-1 k-col-start-md-2 k-col-start-lg-4 k-col-start-xxl-5 k-py-2">
+    <div class="k-d-flex k-flex-col k-w-full k-align-items-center k-gap-4">
+        <div
+            class="substitute-section k-d-flex k-flex-col k-w-full k-gap-4 k-box-sizing-border k-p-8 k-bg-surface k-border k-border-solid k-border-border k-elevation-1 k-rounded-md k-mt-2">
+            @if (!loading && modifiedRecipeCard == undefined) {
+            <h2 class="k-color-subtle !k-m-0 !k-text-left k-font-medium">
+                AI заместител на алергени
+            </h2>
+            <p class="k-color-subtle k-font-size-md !k-m-0 k-text-left">Искал ли си някога да опиташ дадено ястие, но да
+                не
+                можеш, защото съдържа съставка, към която си алергичен?</p>
+            <hr kendoCardSeparator />
+            <form *ngIf="!loading && modifiedRecipeCard == undefined" class="k-form k-w-full" [formGroup]="recipeForm"
+                (ngSubmit)="modifyRecipe()">
+                <div class="k-mb-6">
+                    <kendo-label>Твоите алергии</kendo-label>
+                    <div class="tag-list">
+                        @for(allergy of allergies; track allergy) {
+                        <span class="allergy-tag">
+                            {{ allergy }}
+                        </span>
+                        }
+                    </div>
+                    <kendo-formhint>Твоите алергии са автоматично придобити от профила ти.</kendo-formhint>
+                </div>
+                <kendo-formfield class="!k-mb-8">
+                    <kendo-label labelCssClass="k-form-label" [for]="recipe" text="Твоята рецепта"></kendo-label>
+                    <kendo-textarea #recipe formControlName="recipe" resizable="none" adornmentsOrientation="horizontal"
+                        flow="vertical" placeholder="напр. Ризото с пиле, 250 гр пилешко филе, 1 с.л. масло..."
+                        [rows]="3">
+                    </kendo-textarea>
+                    <kendo-formhint>Опиши името на ястието и/или основните съставки тук.</kendo-formhint>
+                    <kendo-formerror *ngIf="recipeForm.controls['recipe'].errors?.['required']">Моля, въведи
+                        името на ястието и/или основни съставки.</kendo-formerror>
+                </kendo-formfield>
+
+                <div class="k-form-buttons k-buttons-end  k-col-span-3">
+                    <button type="submit" kendoButton [svgIcon]="sparklesIcon" themeColor="primary">
+                        Модифицирай рецепта
+                    </button>
+                    <button type="button" kendoButton (click)="clearForm()">Изчисти</button>
+                </div>
+            </form>
+            }
+
+            @if (loading || modifiedRecipeCard !== undefined) {
+            <h2 class="k-color-subtle !k-m-0 k-text-left k-font-medium">Твоята модифицирана рецепта</h2>
+            <hr kendoCardSeparator />
+
+            <!-- Loading skeletons -->
+            <div *ngIf="loading" class="loader-container">
+                <kendo-loader type="pulsing" size="large"></kendo-loader>
+                <p class="k-color-subtle k-grid-cols-1  k-font-size-md !k-m-0">Изчакай малко, докато AI модифицира
+                    рецептата...</p>
+            </div>
+            <!-- Loading skeletons -->
+
+            <div *ngIf="modifiedRecipeCard !== undefined" class="k-d-grid k-grid-cols-1 k-gap-4 k-w-full">
+                <substitute-recipe-card [name]="modifiedRecipeCard.name" [shortDesc]="modifiedRecipeCard.description"
+                    [ingredients]="modifiedRecipeCard.ingredients" [instructions]="modifiedRecipeCard.instructions"
+                    [cookTime]="modifiedRecipeCard.time" [safe]="modifiedRecipeCard.safe"></substitute-recipe-card>
+
+                <hr kendoCardSeparator />
+                <p class="ai-disclaimer">
+                    <kendo-svgicon [icon]="warningTriangleIcon" size="medium" themeColor="warning"
+                        class="k-ml-1 k-align-text-top !k-my-0"></kendo-svgicon> Тази рецепта е генерирана от AI и не гарантира
+                    100% точност. Възможни са грешки и неточности. Винаги използвайте най-добрата си преценка,
+                    когато готвите ястия, генерирани от AI.
+                </p>
+                <hr kendoCardSeparator />
+
+                <button class="k-justify-content-left k-max-w-fit" kendoButton size="large" fillMode="flat"
+                    (click)="backToForm()">
+                    <kendo-svg-icon [icon]="chevronLeftIcon" size="large"></kendo-svg-icon>
+                    Върни се към заместителя на алергени
+                </button>
+            </div>
+            }
+        </div>
+    </div>

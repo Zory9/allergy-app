@@ -1,0 +1,22 @@
+<footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>AllerGen Free</h3>
+            <p>Правим готвенето без алергени достъпно, вкусно и без стрес – за всеки.</p>
+            <img class="logo" src="/assets/images/allergen-free-logo.png" />
+        </div>
+
+        <div class="footer-column">
+            <h3>Функционалности</h3>
+            <ul class="footer-links">
+                <li><a [routerLink]="isLoggedIn ? './analyze' : './signup/register'">Анализ на храни</a></li>
+                <li><a [routerLink]="isLoggedIn ? './recipes/generate' : './signup/register'">Генератор на рецепти</a></li>
+                <li><a [routerLink]="isLoggedIn ? './recipes/substitute' : './signup/register'">Модификатор на рецепти</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 AllerGen Free. All rights reserved.</p>
+    </div>
+</footer>

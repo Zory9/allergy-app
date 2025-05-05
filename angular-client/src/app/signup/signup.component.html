@@ -1,0 +1,18 @@
+<section class="wrapper-section k-d-flex k-align-items-center k-justify-content-center k-h-full">
+  <div
+    class="form-container k-bg-surface-alt k-rounded-lg k-d-flex k-flex-col k-gap-4 k-p-7 k-elevation-8 k-box-sizing-border k-w-full">
+    <kendo-buttongroup width="100%" selection="single">
+      @for (button of buttons; track button) {
+      <button kendoButton size="large" [toggleable]="true" [selected]="button.selected"
+        (click)="selectedChange(button)">
+        <span>
+          {{ button.text }}
+        </span>
+      </button>
+      }
+
+    </kendo-buttongroup>
+
+    <router-outlet></router-outlet>
+  </div>
+</section>

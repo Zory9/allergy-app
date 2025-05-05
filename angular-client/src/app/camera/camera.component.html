@@ -1,0 +1,9 @@
+<div class="camera" *ngIf="camData">
+    <webcam [trigger]="$trigger" [width]="width" (imageCapture)="handleCapture($event)">
+    </webcam>
+    <button class="capture-button" kendoButton size="large" themeColor="primary" [svgIcon]="svgCamera" (click)="captureImage()">Направи снимка</button>
+</div>
+
+<div *ngIf="capturedImage" class="captured-image">
+    <img [src]="capturedImage">
+</div>

@@ -1,0 +1,85 @@
+<kendo-dialog *ngIf="userService.registerSuccess" (close)="onDialogClose()">
+    <kendo-dialog-titlebar>
+      <div style="font-size: 18px; line-height: 1.3em;">
+         Успешна регистрация
+      </div>
+    </kendo-dialog-titlebar>
+    <div>
+        <p>Регистрацията е успешна! Искате ли да влезете в профила си?</p>
+    </div>
+    <kendo-dialog-actions layout="end">
+        <button kendoButton themeColor="primary" (click)="login()">
+            Влизане
+        </button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog *ngIf="userService.registerError" (close)="onDialogCloseError()">
+    <kendo-dialog-titlebar>
+      <div style="font-size: 18px; line-height: 1.3em;">
+        Грешка при регистрацията
+      </div>
+    </kendo-dialog-titlebar>
+    <div>
+        <p>Регистрацията не беше успешна! Моля, опитайте отново.</p>
+    </div>
+    <kendo-dialog-actions layout="end">
+        <button kendoButton themeColor="primary" (click)="onDialogCloseError()">
+            Опитай отново
+        </button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<div class="form-wrapper">
+    <form class="k-d-flex k-flex-col k-gap-3.5 k-form k-form-md" [formGroup]="registerForm" (ngSubmit)="register()">
+        <fieldset class="k-form-fieldset">
+            <legend class="k-form-legend">Регистрация</legend>
+            <kendo-formfield>
+                <kendo-label labelCssClass="k-form-label" [for]="email" text="Имейл"></kendo-label>
+                <kendo-textbox formControlName="email" [clearButton]="true" #email></kendo-textbox>
+                <kendo-formerror
+                    *ngIf="registerForm.controls['email'].errors?.['required'] || registerForm.controls['email'].errors?.['email']">Моля,
+                    въведи валиден
+                    имейл.</kendo-formerror>
+            </kendo-formfield>
+            <kendo-formfield>
+                <kendo-label labelCssClass="k-form-label" [for]="username" text="Потребителско име"></kendo-label>
+                <kendo-textbox formControlName="username" [clearButton]="true" #username></kendo-textbox>
+                <kendo-formerror *ngIf="registerForm.controls['username'].errors?.['required']">Моля, въведи
+                    потребителско име.</kendo-formerror>
+            </kendo-formfield>
+            <kendo-formfield>
+                <kendo-label labelCssClass="k-form-label" [for]="password" text="Парола"></kendo-label>
+                <kendo-textbox formControlName="password" #password [type]="passwordType" [clearButton]="true">
+                    <ng-template kendoTextBoxSuffixTemplate>
+                        <kendo-textbox-separator></kendo-textbox-separator>
+                        <button type="button" kendoButton fillMode="clear" [svgIcon]="eyeIcon" (click)="toggleVisibility()"></button>
+                    </ng-template>
+                </kendo-textbox>
+                <kendo-formerror *ngIf="registerForm.controls['password'].errors">Моля, въведи
+                    валидна парола. Паролата трябва да има минимум 6 символа, поне 1 главна буква, 1 число и 1 специален
+                    символ.</kendo-formerror>
+            </kendo-formfield>
+            <kendo-formfield>
+                <kendo-label labelCssClass="k-form-label" [for]="allergy" text="Алергия"></kendo-label>
+                <kendo-multiselect formControlName="allergy" [clearButton]="true" [data]="allergiesData" [allowCustom]="true" #allergy></kendo-multiselect>
+                <kendo-formerror *ngIf="registerForm.controls['allergy'].errors?.['required']">Моля, въведи
+                    поне една хранителна алергия.</kendo-formerror>
+            </kendo-formfield>
+
+            <div class="k-form-buttons">
+                <div class="k-d-flex k-flex-col k-flex-grow k-gap-2">
+                    <div class="k-d-flex k-justify-content-center k-align-items-center k-gap-2">
+                        <p class="k-text-subtle">Вече имаш профил?</p>
+                        <button kendoButton type="button" themeColor="primary" fillMode="flat" (click)="login()">Влез в профила
+                            си</button>
+                    </div>
+                    <div class="k-d-flex k-justify-content-stretch k-gap-2">
+                        <button kendoButton type="submit" themeColor="primary">Регистрация</button>
+                        <button kendoButton type="button" (click)="clearForm()">Изчисти</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

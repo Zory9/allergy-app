@@ -1,0 +1,60 @@
+.wrapper-section {
+    min-height: 100vh;
+    padding-block: 20px;
+    background: linear-gradient(rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.7)), url('/assets/images/food-pattern.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    overflow-y: hidden;
+}
+
+@media (max-width: 768px) {
+    .wrapper-section {
+        padding-inline: 2rem;
+    }
+    
+    .k-tabstrip .k-link-text {
+        display: none;
+    }
+
+    .k-prompt-view .k-card-list .k-card .k-actions .k-button-text {
+        display: none;
+    }
+}
+
+.k-tabstrip-top > .k-tabstrip-items-wrapper {
+    border-bottom-width: 0;
+}
+
+.k-tabstrip-top > .k-tabstrip-items-wrapper .k-item:not(.k-active){
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.ai-disclaimer {
+    background-color: #fff8dc; 
+    color: #4b5563; 
+    font-size: 0.8rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid #facc15;
+} 
+
+.allergy-tag {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #b91c1ca2;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}

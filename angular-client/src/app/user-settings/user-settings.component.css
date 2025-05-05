@@ -1,0 +1,25 @@
+.wrapper-section {
+    min-height: calc(100vh - 40px);
+    padding-block: 20px;
+    background: linear-gradient(rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.7)), url('/assets/images/food-pattern.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    overflow-y: hidden;
+}
+
+.wrapper-section .wrapper-div{
+    padding-inline: 20rem;
+}
+
+.settings-section{
+    background-color: #e2d4eec2;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}

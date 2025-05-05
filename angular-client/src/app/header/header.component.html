@@ -1,0 +1,46 @@
+<div *ngIf="isLoggedIn">
+    <kendo-appbar positionMode="sticky">
+        <kendo-appbar-section class="k-mx-auto k-w-full">
+            <div class="k-d-flex k-flex-basis-0 k-flex-grow">
+                <a [routerLink]="'./home'">
+                    <img class="logo" src="/assets/images/allergen-free-logo.png" />
+                </a>
+            </div>
+            <div class="k-d-none k-d-md-flex k-d-lg-flex k-flex-basis-0 k-flex-grow k-justify-content-center">
+                <kendo-menu [items]="menuItems" (select)="onSelect($event)">
+                    <ng-template kendoMenuItemLinkTemplate let-item="item" let-index="index">
+                        <a [ngClass]="{'active-item': activeItemIndex === index}" [kendoMenuItemLink]="index" [routerLink]="'./' + item.path">
+                          {{ item.text }}
+                          <span
+                            *ngIf="item.items && item.items.length"
+                            [kendoMenuExpandArrow]="index"
+                          ></span>
+                        </a>
+                    </ng-template>
+                </kendo-menu>
+            </div>
+            <div class="k-d-flex k-d-lg-flex k-flex-basis-0 k-flex-grow k-justify-content-end">
+                <kendo-dropdownbutton textField="actionName" [svgIcon]="userIcon" fillMode="outline" rounded="full"
+                    [data]="buttonData">
+                    Моят профил
+                </kendo-dropdownbutton>
+            </div>
+        </kendo-appbar-section>
+    </kendo-appbar>
+</div>
+
+<div *ngIf="!isLoggedIn">
+    <kendo-appbar positionMode="sticky">
+        <kendo-appbar-section class="k-mx-auto k-w-full">
+            <div class="k-d-flex k-flex-basis-0 k-flex-grow">
+                <a [routerLink]="'./home'">
+                    <img class="logo" src="/assets/images/allergen-free-logo.png" />
+                </a>
+            </div>
+            <div class="register-btn k-d-flex k-gap-2 k-justify-content-end">
+                <button class="btn" kendoButton rounded="full" size="large"
+                    [routerLink]="'./signup/register'">Вход/Регистрация</button>
+            </div>
+        </kendo-appbar-section>
+    </kendo-appbar>
+</div>

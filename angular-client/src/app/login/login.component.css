@@ -1,0 +1,25 @@
+/* .example {
+    display: flex;
+    justify-content: center;
+}
+
+.k-form {
+    width: 240px;
+    padding: 30px;
+    border: 1px solid black;
+} */
+
+.k-buttons-stretched>* {
+    flex: 1 0 0%;
+    margin-top: 5px;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.form-wrapper .k-form {
+   width: 100%;
+   padding: 0 14px 0 14px;
+}

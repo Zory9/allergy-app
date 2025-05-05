@@ -1,0 +1,113 @@
+<div
+    class="k-d-flex k-flex-col k-gap-8 k-align-items-center k-col-span-6 k-col-span-lg-6 k-col-span-xxl-4 k-col-start-sm-1 k-col-start-md-2 k-col-start-lg-4 k-col-start-xxl-5 k-py-2">
+    <div class="k-d-flex k-flex-col k-w-full k-align-items-center k-gap-4">
+        <div
+            class="generate-section k-d-flex k-flex-col k-border k-border-solid k-border-border k-rounded-lg k-elevation-1 k-w-full k-gap-4 k-box-sizing-border k-p-8 k-bg-surface k-rounded-md k-mt-2">
+            @if (!loading && recipeCards.length == 0) {
+            <h2 class="k-color-subtle !k-m-0 !k-text-left k-font-medium">
+                AI генератор на рецепти
+            </h2>
+            <p class="k-color-subtle k-font-size-md !k-m-0 k-text-left">Опиши твоите желани съставки и виж как AI
+                генерира персонализирани рецепти, съобразени с алергията ти!</p>
+            <hr kendoCardSeparator />
+            <form class="k-form k-w-full" [formGroup]="recipeForm" (ngSubmit)="generateRecipe()">
+                <div class="k-mb-6">
+                    <kendo-label>Твоите алергии</kendo-label>
+                    <div class="tag-list">
+                        @for(allergy of allergies; track allergy) {
+                        <span class="allergy-tag">
+                            {{ allergy }}
+                        </span>
+                        }
+                    </div>
+                    <kendo-formhint>Твоите алергии са автоматично придобити от профила ти.</kendo-formhint>
+                </div>
+                <kendo-formfield>
+                    <kendo-label labelCssClass="k-form-label" [for]="ingredients" text="Основни съставки"></kendo-label>
+                    <kendo-textarea #ingredients formControlName="ingredients" resizable="none"
+                        adornmentsOrientation="horizontal" flow="vertical"
+                        placeholder="напр. пилешко филе, масло, ориз..." [rows]="2">
+                    </kendo-textarea>
+                    <kendo-formhint>Опиши основните съставки тук.</kendo-formhint>
+                    <kendo-formerror *ngIf="recipeForm.controls['ingredients'].errors?.['required']">Моля, въведи
+                        основните съставки.</kendo-formerror>
+                    <kendo-formerror
+                        *ngIf="recipeForm.controls['ingredients'].errors?.['containsWordValidator']">Съставките съдържат
+                        една или повече от твоите алергии.</kendo-formerror>
+                </kendo-formfield>
+                <fieldset class="k-form-fieldset !k-d-grid k-grid-cols-3 k-gap-6 !k-mb-8">
+                    <legend class="k-form-legend">Допълнителни предпочитания <i>(незадължително)</i></legend>
+                    <kendo-formfield class="!k-d-grid k-col-span-xs-3 k-col-span-sm-1">
+                        <kendo-label [for]="cuisine" text="Тип кухня"></kendo-label>
+                        <kendo-combobox #cuisine formControlName="cuisine" [data]="cuisines" [allowCustom]="true">
+                        </kendo-combobox>
+                    </kendo-formfield>
+                    <kendo-formfield class="!k-d-grid k-col-span-xs-3 k-col-span-sm-1">
+                        <kendo-label [for]="mealtype" text="Тип хранене"></kendo-label>
+                        <kendo-combobox #mealtype formControlName="mealtype" [data]="mealTypes" [allowCustom]="true">
+                        </kendo-combobox>
+                    </kendo-formfield>
+                    <kendo-formfield class="!k-d-grid k-col-span-xs-3 k-col-span-sm-1">
+                        <kendo-label [for]="cooktime" text="Време за приготвяне"></kendo-label>
+                        <kendo-combobox #cooktime formControlName="cooktime" [data]="cookTimes" [allowCustom]="true">
+                        </kendo-combobox>
+                    </kendo-formfield>
+                </fieldset>
+                <div class="k-form-buttons k-buttons-end  k-col-span-3">
+                    <button type="submit" kendoButton [svgIcon]="sparklesIcon" themeColor="primary">
+                        Генерирай рецепти
+                    </button>
+                    <button type="button" kendoButton (click)="clearForm()">Изчисти</button>
+                </div>
+            </form>
+            }
+
+            @if(loading || recipeCards.length !== 0){
+            <h2 class="k-color-subtle !k-m-0 k-text-left k-font-medium">Твоите персонализирани рецепти</h2>
+            <hr kendoCardSeparator />
+
+            <!-- Loading skeletons -->
+            <div *ngIf="loading" class="k-d-grid k-grid-cols-1 k-gap-4 k-w-full">
+                <p class="k-color-subtle k-text-center k-font-size-md !k-m-0">Изчакай малко, докато AI генерира
+                    рецептите...</p>
+                @for(card of [].constructor(3); track $index){
+                <kendo-card orientation="horizontal" class="!k-w-full k-m-auto">
+                    <kendo-card-body>
+                        <kendo-skeleton shape="text" animation="pulse" width="80%"></kendo-skeleton>
+                        <kendo-skeleton shape="text" animation="pulse" width="40%"></kendo-skeleton>
+                        <kendo-skeleton shape="text" animation="pulse" width="100%"></kendo-skeleton>
+                        <kendo-skeleton shape="text" animation="pulse" width="40%"></kendo-skeleton>
+                    </kendo-card-body>
+                    <hr kendoCardSeparator />
+                    <kendo-card-actions orientation="horizontal" layout="stretched" [style.width.px]="200">
+                        <kendo-skeleton shape="text" animation="pulse" width="100%"></kendo-skeleton>
+                    </kendo-card-actions>
+                </kendo-card>
+                }
+            </div>
+            <!-- Loading skeletons -->
+
+            <div *ngIf="recipeCards.length !== 0" class="k-d-grid k-grid-cols-1 k-gap-4 k-w-full">
+                @for(card of recipeCards; track $index){
+                <recipe-card [name]="card.name" [cookTime]="card.time" [description]="card.description"
+                    [shortDesc]="card.shortDesc"></recipe-card>
+                }
+
+                <hr kendoCardSeparator />
+                <p class="ai-disclaimer">
+                    <kendo-svgicon [icon]="warningTriangleIcon" size="medium" themeColor="warning"
+                        class="k-ml-1 k-align-text-top !k-my-0"></kendo-svgicon>Тези рецепти са генерирани от AI и
+                    не гарантират 100% точност. Възможни са грешки и неточности. Винаги използвайте най-добрата си
+                    преценка, когато готвите ястия, генерирани от AI.
+                </p>
+                <hr kendoCardSeparator />
+
+                <button class="k-justify-content-left k-max-w-fit" kendoButton size="large" fillMode="flat"
+                    (click)="backToForm()">
+                    <kendo-svg-icon [icon]="chevronLeftIcon" size="large"></kendo-svg-icon>
+                    Върни се към генератора на рецепти
+                </button>
+            </div>
+            }
+        </div>
+    </div>

@@ -1,0 +1,72 @@
+<kendo-aiprompt class="image-completion" [(activeView)]="activeView" [promptOutputs]="promptOutputs"
+    (promptRequest)="onPromptRequest($event)">
+    <kendo-aiprompt-custom-view buttonText="Прикачи снимка" [svgIcon]="imageSVG" [viewTemplate]="contentImage">
+    </kendo-aiprompt-custom-view>
+    <kendo-aiprompt-custom-view [viewTemplate]="loadingTemplate">
+    </kendo-aiprompt-custom-view>
+    <kendo-aiprompt-output-view class="myclass">
+    </kendo-aiprompt-output-view>
+    <kendo-aiprompt-messages promptView="Задай въпрос" outputView="Отговор" generateOutput="Генерирай отговор"
+        promptPlaceholder="Попитай въпрос относно храната, която те интересува..." retryGeneration="Опитай пак"
+        outputTitle="" outputRetryTitle="Твоят отговор" copyOutput="Копирай отговор" promptSuggestions="Предложения">
+    </kendo-aiprompt-messages>
+</kendo-aiprompt>
+
+
+<ng-template #contentImage>
+    <div class="wrapper k-white-space-normal" *ngIf="!showCamera && !showMobileInput">
+        <kendo-fileselect #fileselect [multiple]="false" [restrictions]="myRestrictions" (select)="onSelect($event)"
+            (remove)="onRemove()">
+            <kendo-fileselect-messages select="Прикачи снимка или дръпни и пусни снимката тук" dropFilesHere=""
+                fileStatusUploaded="Файлът е прикачен успешно"></kendo-fileselect-messages>
+        </kendo-fileselect>
+
+        <div *ngIf="uploadSuccess" class="k-actions k-actions-stretched k-flex-wrap">
+            <button kendoButton class="k-button-solid-base" (click)="clearUploadFiles(fileselect)">
+                Премахни
+            </button>
+            <button kendoButton class="k-button-solid-primary" (click)="analyzeImage()">
+                Анализирай
+            </button>
+        </div>
+    </div>
+
+    <div class="wrapper-camera" *ngIf="showCameraWrapper">
+        <ng-container *ngIf="!isMobile; else mobileInput">
+            <div class="open-camera" *ngIf="!showCamera">
+                <button kendoButton (click)="openCamera()" class="camera-button">Направи снимка</button>
+            </div>
+
+            <div class="internal-wrapper-camera" *ngIf="showCamera">
+                <app-camera #appCamera (imageReady)="onImageReady($event)"></app-camera>
+                <div *ngIf="showAnalyzeButton" class="k-actions k-actions-stretched k-flex-wrap">
+                    <button kendoButton class="k-button-solid-base" (click)="takeNewImage(appCamera)">
+                        Направи нова снимка
+                    </button>
+                    <button kendoButton class="k-button-solid-primary" (click)="analyzeImage()">
+                        Анализирай
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #mobileInput>
+            <app-camera-mobile #appCameraMobile (imageReady)="onImageReadyMobile($event)"></app-camera-mobile>
+            <div *ngIf="showAnalyzeButton" class="k-actions k-actions-stretched k-flex-wrap">
+                <button kendoButton class="k-button-solid-base" (click)="takeNewImageMobile(appCameraMobile)">
+                    Направи нова снимка
+                </button>
+                <button kendoButton class="k-button-solid-primary" (click)="analyzeImage()">
+                    Анализирай
+                </button>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+    <div *ngIf="loading" class="loader-container">
+        <kendo-loader type="pulsing" size="large"></kendo-loader>
+        <p class="k-color-subtle k-grid-cols-1  k-font-size-md !k-m-0">Изчакай малко, докато AI генерира подходящ
+            отговор за теб...</p>
+    </div>
+</ng-template>

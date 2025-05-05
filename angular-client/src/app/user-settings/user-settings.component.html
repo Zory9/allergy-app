@@ -1,0 +1,76 @@
+<section class="wrapper-section k-d-flex k-align-items-start k-justify-content-center k-h-full">
+    <div class="wrapper-div k-rounded-lg k-d-flex k-flex-col k-gap-4 k-px-30 k-pt-10 k-w-full">
+        <div
+            class="settings-section k-d-flex k-flex-col k-w-full k-gap-4 k-box-sizing-border k-p-8 k-border k-border-solid k-border-border k-rounded-md k-mt-2">
+            <div class="k-d-flex k-align-items-center k-justify-content-between k-w-full k-gap-4">
+                <h2 class="!k-m-0">Настройки на профила</h2>
+            </div>
+            <hr kendoCardSeparator />
+            <form class="k-d-grid k-grid-cols-2 k-gap-8" [formGroup]="userForm" (ngSubmit)="updateUserInfo()">
+                <kendo-formfield>
+                    <kendo-label labelCssClass="k-form-label" [for]="email" text="Имейл"></kendo-label>
+                    <kendo-textbox formControlName="email" [clearButton]="true" #email></kendo-textbox>
+                    <kendo-formerror
+                        *ngIf="userForm.controls['email'].errors?.['required'] || userForm.controls['email'].errors?.['email']">Моля,
+                        въведи валиден
+                        имейл.</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield>
+                    <kendo-label labelCssClass="k-form-label" [for]="username" text="Потребителско име"></kendo-label>
+                    <kendo-textbox formControlName="username" [clearButton]="true" #username></kendo-textbox>
+                    <kendo-formerror *ngIf="userForm.controls['username'].errors?.['required']">Моля, въведи
+                        потребителско име.</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield>
+                    <kendo-label labelCssClass="k-form-label" [for]="allergy" text="Моите алергии"></kendo-label>
+                    <kendo-multiselect formControlName="allergy" [clearButton]="true" [data]="allergiesData" [allowCustom]="true" #allergy></kendo-multiselect>
+                    <kendo-formerror *ngIf="userForm.controls['allergy'].errors?.['required']">Моля, въведи
+                        поне една хранителна алергия.</kendo-formerror>
+                </kendo-formfield>
+
+                <div class="k-form-buttons k-col-start-1 k-col-end-3 k-justify-content-end">
+                    <button kendoButton themeColor="primary" [style.width.px]="110" type="submit"
+                        [disabled]="userForm.invalid || (!userForm.touched && !userForm.dirty)">
+                        Запази
+                    </button>
+                    <button kendoButton [style.width.px]="110" type="button" fillMode="outline"
+                        (click)="restoreUserInfo()" [disabled]="!userForm.touched && !userForm.dirty">
+                        Отмени
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<kendo-dialog *ngIf="updateSuccess" (close)="onDialogClose()">
+    <kendo-dialog-titlebar>
+      <div style="font-size: 18px; line-height: 1.3em;">
+         Настройки
+      </div>
+    </kendo-dialog-titlebar>
+    <div>
+        <p>Успешно запазени промени!</p>
+    </div>
+    <kendo-dialog-actions layout="end">
+        <button kendoButton themeColor="primary" (click)="onDialogClose()">
+            Затвори
+        </button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog *ngIf="updateError" (close)="onDialogCloseError()">
+    <kendo-dialog-titlebar>
+      <div style="font-size: 18px; line-height: 1.3em;">
+        Настройки
+      </div>
+    </kendo-dialog-titlebar>
+    <div>
+        <p>Промените не успяха да бъдат запазени. Моля, опитайте отново!</p>
+    </div>
+    <kendo-dialog-actions layout="end">
+        <button kendoButton themeColor="primary" (click)="onDialogCloseError()">
+            Опитай отново
+        </button>
+    </kendo-dialog-actions>
+</kendo-dialog>

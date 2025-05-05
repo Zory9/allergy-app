@@ -1,0 +1,13 @@
+.k-buttons-stretched>* {
+    flex: 1 0 0%;
+    margin-top: 5px;
+}
+
+.k-form-buttons {
+    margin: 1px;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+}

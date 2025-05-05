@@ -1,0 +1,63 @@
+<section
+    class="wrapper-section k-d-grid k-gap-4 k-gap-lg-6 k-grid-cols-6 k-grid-cols-lg-12 k-text-center">
+    <div
+        class="k-d-flex k-flex-col k-gap-8 k-align-items-center k-col-span-6 k-col-span-lg-6 k-col-span-xxl-4 k-col-start-sm-2 k-col-end-sm-6 k-col-start-md-2 k-col-start-lg-4 k-col-start-xxl-5 k-py-2">
+        <div class="k-d-flex k-flex-col k-align-items-center k-gap-4">
+            <h2 class="k-h2 !k-mb-0 k-mt-4">Здравей!</h2>
+            <p class="k-font-size-lg k-line-height-lg k-color-subtle !k-mt-0 k-mb-4">Имаш алергия и се чудиш дали дадена храна е
+                безопасна за теб? Избери една от опциите долу и анализирай храната си за алергени веднага!</p>
+        </div>
+        <div
+            class="wrapper-div k-d-flex k-flex-col k-w-full k-gap-1 k-box-sizing-border k-p-4 k-bg-surface k-border k-border-solid k-border-border k-rounded-lg k-elevation-1">
+            <kendo-tabstrip tabAlignment="stretched" themeColor="light">
+                <kendo-tabstrip-tab [selected]="true">
+                    <ng-template kendoTabTitle>
+                        <kendo-svg-icon [icon]="commentIcon"></kendo-svg-icon>
+                        <span class="k-link-text">Попитай въпрос</span>
+                    </ng-template>
+                    <ng-template kendoTabContent>
+                        <div class="text-content k-d-flex k-flex-col k-gap-4">
+                            <div
+                                class='k-gap-2 k-w-full k-h-full k-box-sizing-border k-border k-border-border k-rounded-lg'>
+                                <app-text-completion></app-text-completion>
+                            </div>
+                        </div>
+                    </ng-template>
+                </kendo-tabstrip-tab>
+                <kendo-tabstrip-tab>
+                    <ng-template kendoTabTitle>
+                        <kendo-svg-icon [icon]="imageAddIcon"></kendo-svg-icon>
+                        <span class="k-link-text">Прикачи или направи снимка</span>
+                    </ng-template>
+                    <ng-template kendoTabContent>
+                        <div
+                            class="k-d-flex k-flex-col k-gap-4 k-border-dashed k-border-2 k-border-primary k-rounded-lg">
+                            <div
+                                class='k-gap-2 k-w-full k-h-full k-box-sizing-border k-border k-border-border k-rounded-lg'>
+                                <app-image-completion></app-image-completion>
+                            </div>
+                        </div>
+                    </ng-template>
+                </kendo-tabstrip-tab>
+            </kendo-tabstrip>
+
+            <div class="k-my-4 k-p-4 k-text-start k-border k-border-solid k-border-border k-rounded-lg k-elevation-1">
+                <kendo-label class="k-font-size-md">Твоите алергии</kendo-label>
+                <div class="tag-list">
+                    @for(allergy of allergies; track allergy) {
+                    <span class="allergy-tag">
+                        {{ allergy }}
+                    </span>
+                    }
+                </div>
+                <kendo-formhint>Твоите алергии са автоматично придобити от профила ти.</kendo-formhint>
+            </div>
+        </div>
+        <p class="ai-disclaimer k-m-0">
+            <kendo-svgicon [icon]="warningTriangleIcon" size="medium" themeColor="warning"
+                class="k-ml-1 k-align-text-top !k-my-0"></kendo-svgicon> Отговорите са генерирани от AI и не гарантират
+            100% точност. Възможни са грешки и неточности. Винаги използвайте най-добрата си преценка,
+            когато имате съмнения относно ястия, които могат да бъдат потенциално опасни за вас.
+        </p>
+    </div>
+</section>

@@ -1,0 +1,72 @@
+.k-drawer {
+    background-color: rgb(102, 102, 102);
+    color: #ffffff;
+}
+
+.k-appbar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(102, 102, 102);
+    height: 5rem;
+}
+
+.k-appbar .k-menu-button {
+    color: rgb(102, 102, 102);
+}
+
+.k-appbar .k-menu .k-menu-item{
+    color: rgb(102, 102, 102);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.k-drawer .drawer-close {
+    color: rgb(102, 102, 102);
+}
+
+
+.k-appbar .k-menu-button{
+    padding: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.active-item {
+    color: var(--kendo-color-primary);
+    font-weight: 600;
+}
+
+.k-appbar .k-menu-button:hover, .k-appbar .k-menu-button.k-hover {
+    border-color: #aa97b9;
+    background-color: var(--primary-light);
+    transform: translateY(-5px);
+}
+
+.k-appbar .k-link {
+    transition: transform 0.3s;
+}
+
+.k-appbar .k-link:hover {
+    color: #aa97b9;
+    transform: translateY(-5px);
+}
+
+.k-appbar .logo {
+    height: 4.5rem;
+}
+
+.register-btn .btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.register-btn .btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}

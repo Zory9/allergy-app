@@ -1,0 +1,40 @@
+.text-completion.k-prompt {
+    width: 100%;
+    gap: 12px;
+}
+
+.text-completion .k-prompt-view {
+    gap: 0; 
+}
+
+.text-completion.k-prompt>* {
+    background-color: transparent;
+}
+
+.text-completion .k-prompt-suggestion {
+    text-align: left;
+}
+
+.k-card-list .k-card {
+    text-align: left;
+}
+
+.k-card-list .k-card-header .k-card-subtitle{
+    display: none;
+}
+
+.k-card-list .k-card-header .k-card-title {
+    font-size: 20px;
+}
+
+.text-completion .k-prompt-header{
+    display: none;
+}
+
+.loader-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 16rem;
+    flex-direction: column;
+}

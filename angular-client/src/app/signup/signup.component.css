@@ -1,0 +1,19 @@
+.wrapper-section {
+    min-height: calc(100vh - 40px);
+    padding-block: 20px;
+    background: linear-gradient(rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.7)), url('/assets/images/food-pattern.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    overflow-y: hidden;
+}
+
+
+.form-container button[kendoButton] {
+    font-size: 14px;
+}
+
+.form-container {
+    max-height: fit-content;
+    max-width: 400px;
+}

@@ -1,0 +1,25 @@
+<section class="wrapper-section k-d-flex k-align-items-start k-justify-content-center k-h-full">
+    <div class="wrapper-div k-rounded-lg k-d-flex k-flex-col k-gap-4 k-px-30 k-w-full">
+        <div class="k-d-flex k-flex-col k-w-full k-gap-4 k-my-4 k-align-items-center">
+            <h2 class="k-h2 !k-m-0">Гладен ли си?</h2>
+            <p class="k-font-size-lg k-line-height-lg k-color-subtle !k-m-0 k-text-center">Опиши какво ти се хапва и
+                намери персонализирани рецепти, съобразени с алергията ти!</p>
+        </div>
+        <kendo-buttongroup width="100%" selection="single">
+            @for (button of buttons; track button) {
+            <button kendoButton size="large" [toggleable]="true" [selected]="button.selected"
+                (click)="selectedChange(button)">
+                <kendo-svg-icon [icon]="button.icon" class="k-d-lg-none k-d-md-flex k-d-sm-flex k-d-xs-flex"></kendo-svg-icon>
+                <span class="k-d-lg-flex k-d-md-none k-d-sm-none k-d-xs-none">
+                    {{ button.text }}
+                </span>
+            </button>
+            }
+
+        </kendo-buttongroup>
+
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>

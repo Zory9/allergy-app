@@ -1,0 +1,31 @@
+<kendo-card class="recipe-card !k-w-full k-m-auto">
+    <kendo-card-body>
+        <h3 class="recipe-name"> {{ name }}</h3>
+        <div class="recipe-meta">
+            <span class="safety-badge">Безопасно за теб</span>
+            <span class="time-info">
+                <kendo-svgicon [icon]="clockIcon" size="medium" class="k-mr-1 k-align-text-top"></kendo-svgicon>
+                <i>{{ cookTime }}</i>
+            </span>
+        </div>
+        <p class="short-desc">{{ shortDesc }}</p>
+        <div *ngIf="expanded">
+            <hr kendoCardSeparator />
+            <div class="recipe-wrap">
+                <h3 class="recipe-title">Стъпки за приготвяне</h3>
+                <ul class="recipe-steps">
+                    <li *ngFor="let step of parsedSteps">
+                        {{ step }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </kendo-card-body>
+    <hr kendoCardSeparator />
+    <kendo-card-actions layout="stretched">
+        <button class="toggle-button" kendoButton fillMode="flat" themeColor="primary" (click)="toggleRecipe()">
+            <kendo-svg-icon [icon]="moreIcon" size="medium"></kendo-svg-icon>
+            {{ btnText }}
+        </button>
+    </kendo-card-actions>
+</kendo-card>
