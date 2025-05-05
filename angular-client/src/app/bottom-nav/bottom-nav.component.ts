@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { homeIcon, searchIcon, SVGIcon, trackChangesEnableIcon } from '@progress/kendo-svg-icons';
 import { UserService } from '../user.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { BottomNavigationItem, BottomNavigationSelectEvent } from '@progress/kendo-angular-navigation';
+import { filter, startWith } from 'rxjs';
 
 interface MyBottomNavigationItem extends BottomNavigationItem {
   route: string; 
@@ -15,6 +16,26 @@ interface MyBottomNavigationItem extends BottomNavigationItem {
   encapsulation: ViewEncapsulation.None,
 })
 export class BottomNavComponent {
+  constructor(public userService: UserService, private router: Router) {
+    this.userService.isLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+    });
+  }
+
+  public ngOnInit(): void {
+      this.router.events
+      .pipe(
+         filter((event) => event instanceof NavigationEnd),
+         startWith(this.router)
+      )
+      .subscribe((event: NavigationEnd) => {
+        const url = this.router.url;
+        const parts = url.split('/');
+
+        this.manageItemsSelection(parts[1]);
+      })
+    }
+
   public homeIcon: SVGIcon = homeIcon;
   public searchIcon: SVGIcon = searchIcon;
   public trackChangesEnableIcon: SVGIcon = trackChangesEnableIcon;
@@ -26,19 +47,6 @@ export class BottomNavComponent {
   ];
 
   public isLoggedIn: boolean = false;
-
-  constructor(public userService: UserService, private router: Router) {
-      this.userService.isLoggedIn$.subscribe((status) => {
-        this.isLoggedIn = status;
-      });
-  
-      this.router.events.subscribe(() => {
-        const url = this.router.url;
-        const parts = url.split('/');
-  
-        this.manageItemsSelection(parts[1]);
-      });
-    }
 
   public onSelect(ev: BottomNavigationSelectEvent): void {
     this.router.navigate([`./${ev.item.route}`]);

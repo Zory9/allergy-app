@@ -19,6 +19,7 @@ const routes: Routes = [
     path: 'signup',
     component: SignupComponent,
     children: [
+      { path: '', redirectTo: 'register', pathMatch: 'full' },
       {
         path: 'register',
         component: RegisterComponent,
@@ -68,11 +69,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,  { 
-    scrollPositionRestoration: 'enabled', 
-    anchorScrolling: 'enabled', 
-    scrollOffset: [0, 50]
-  })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      scrollOffset: [0, 50],
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

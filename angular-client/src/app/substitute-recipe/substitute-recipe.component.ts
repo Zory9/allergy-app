@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { commaSeparatedStringsValidator } from '../validators';
 import { chevronLeftIcon, sparklesIcon, SVGIcon, warningTriangleIcon } from '@progress/kendo-svg-icons';
 import { OpenAiService } from '../openai.service';
 import { UserService } from '../user.service';
@@ -26,28 +25,6 @@ export class SubstituteRecipeComponent {
     });
   }
 
-  // modifiedRecipeCard: ModifiedRecipe = {
-  //   name: 'Spaghetti Carbonara (Modified)',
-  //   description: 'A creamy Italian pasta dish adapted to your allergy profile.',
-  //   time: '30 minutes',
-  //   ingredients: [
-  //     { original: 'Spaghetti', isAllergen: false, quantity: '1 cup' },
-  //     {
-  //       original: 'Egg',
-  //       isAllergen: true,
-  //       replacement: 'Flaxseed mixture',
-  //       quantity: '1 cup'
-  //     },
-  //     { original: 'Parmesan Cheese', isAllergen: false, quantity: '1 cup' },
-  //     {
-  //       original: 'Bacon',
-  //       isAllergen: true,
-  //       replacement: 'Smoked mushrooms',
-  //       quantity: '1 cup'
-  //     },
-  //   ],
-  //   instructions: 'Boil the spaghetti according to package instructions.\nPrepare flaxseed mixture as an egg substitute.\nSaute smoked mushrooms for a rich flavor.\nMix everything and top with Parmesan cheese.',
-  // };
   public modifiedRecipeCard: ModifiedRecipe;
   
   public recipeForm: FormGroup = new FormGroup({
@@ -72,7 +49,6 @@ export class SubstituteRecipeComponent {
         ).then((res) => {
           const modifiedRecipe = res.modifiedRecipe;
           this.modifiedRecipeCard = modifiedRecipe;
-          console.log(modifiedRecipe)
           this.loading = false;
         })
       }
