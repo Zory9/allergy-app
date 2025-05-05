@@ -70,7 +70,6 @@ export class UserService {
 
     await firstValueFrom(req)
       .then((data) => {
-        console.log(data);
         const token = data.token;
 
         localStorage.setItem(this.tokenKey, token);
@@ -98,7 +97,6 @@ export class UserService {
     await firstValueFrom(req)
       .then((data) => {
         this.registerSuccess = true;
-        console.log(data);
       })
       .catch((err) => {
         this.registerError = true;

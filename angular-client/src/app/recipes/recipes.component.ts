@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
   sparklesIcon,
   SVGIcon,
   replaceSingleIcon,
 } from '@progress/kendo-svg-icons';
+import { filter, startWith } from 'rxjs';
 
 export interface IButton {
   text: string;
@@ -18,16 +19,21 @@ export interface IButton {
   templateUrl: './recipes.component.html',
   styleUrl: './recipes.component.css',
 })
-export class RecipesComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+export class RecipesComponent implements OnInit {
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  public ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        startWith(this.router)
+      )
+      .subscribe((event: NavigationEnd) => {
         const url = this.router.url;
         const parts = url.split('/');
 
         this.manageButtonSelection(parts[2]);
-      }
-    });
+      });
   }
 
   public buttons: IButton[] = [

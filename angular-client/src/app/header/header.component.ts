@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from '../user.service';
 import { NavigationEnd, Router } from '@angular/router';
 import {
@@ -8,6 +8,7 @@ import {
   userIcon,
 } from '@progress/kendo-svg-icons';
 import { MenuSelectEvent } from '@progress/kendo-angular-menu';
+import { filter, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -15,16 +16,22 @@ import { MenuSelectEvent } from '@progress/kendo-angular-menu';
   styleUrl: './header.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   public isLoggedIn: boolean = false;
 
   constructor(public userService: UserService, private router: Router) {
     this.userService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
     });
+  }
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+  public ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        startWith(this.router)
+      )
+      .subscribe((event: NavigationEnd) => {
         const url = this.router.url;
         const parts = url.split('/');
 
@@ -35,8 +42,7 @@ export class HeaderComponent {
         };
 
         this.activeItemIndex = routeToIndexMap[parts[1]] || null;
-      }
-    });
+      });
   }
 
   public logout(): void {
