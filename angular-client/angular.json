@@ -36,7 +36,7 @@
             ],
             "styles": [
               {
-                "input":  "node_modules/@progress/kendo-theme-default/dist/default-purple.scss"
+                "input": "node_modules/@progress/kendo-theme-default/dist/default-purple.scss"
               },
               "node_modules/@progress/kendo-theme-utils/dist/all.css",
               "src/styles.css"
@@ -106,11 +106,46 @@
             ],
             "scripts": []
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "angular-client:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-client:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "angular-client:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-client:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@cypress/schematic",
+      "@schematics/angular"
+    ]
   }
 }
