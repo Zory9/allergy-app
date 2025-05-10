@@ -10,6 +10,12 @@ COPY package*.json ./
 # Copy files from local machine to virtual directory in docker image
 COPY . .
 RUN npm install
+
+# Activate Kendo UI license
+ARG KENDO_LICENSE
+ENV TELERIK_LICENSE=$KENDO_LICENSE
+RUN npx kendo-ui-license activate
+
 RUN npm run build --prod
 
 # Step 2: Set up the nginx server to serve the Angular app
