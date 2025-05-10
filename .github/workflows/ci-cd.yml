@@ -1,0 +1,57 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Create .env for Docker Compose
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "PGHOST=${{ secrets.PGHOST }}" >> .env
+          echo "PGPORT=${{ secrets.PGPORT }}" >> .env
+          echo "PGUSER=${{ secrets.PGUSER }}" >> .env
+          echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> .env
+          echo "PGDATABASE=${{ secrets.PGDATABASE }}" >> .env
+
+      - name: Build Docker Images
+        run: docker-compose up --build
+        env:
+          TELERIK_LICENSE: ${{ secrets.TELERIK_LICENSE }}
+
+      - name: Start Services
+        run: docker-compose up -d
+        
+      - name: Wait for Services to be Ready
+        run: sleep 10
+
+      - name: Verify Containers are Running
+        run: docker ps
+
+      - name: Run Karma Unit Tests
+        working-directory: ./angular-client
+        run: |
+          npm run test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Run Cypress E2E Tests
+        working-directory: ./angular-client
+        run: |
+          npm run e2e
+        env:
+          CI: true
+
+      - name: Shut Down Services
+        if: always()
+        run: docker-compose down
