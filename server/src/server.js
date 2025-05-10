@@ -15,9 +15,18 @@ app.use(
     extended: true,
   })
 )
-app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
+app.use(cors({
+    credentials: true,
+    origin: function (origin, callback) {
+        const allowedOrigins = ['http://localhost:4200', 'http://localhost:8080'];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));
 app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.header("Access-Control-Allow-Methods", "GET PATCH DELETE POST");
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', true);
