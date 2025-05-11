@@ -157,9 +157,6 @@ describe('Logged in tests', () => {
   });
 
   it('should give a response when asking AI text completion with mocked response', () => {
-    cy.get('.k-prompt .k-textarea').type('Can I eat a burger?');
-    cy.get('.k-prompt-footer .k-button').contains('Генерирай отговор').click();
-
     cy.intercept('POST', 'http://localhost:3000/ai/text', {
       statusCode: 200,
       body: {
@@ -168,6 +165,9 @@ describe('Logged in tests', () => {
         }
       }
     }).as('askAIRequest');
+
+    cy.get('.k-prompt .k-textarea').type('Can I eat a burger?');
+    cy.get('.k-prompt-footer .k-button').contains('Генерирай отговор').click();
 
     cy.wait('@askAIRequest').its('request.body').should('deep.equal', {
       question: 'Can I eat a burger?',
