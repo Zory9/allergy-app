@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-start:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -59,16 +59,7 @@ jobs:
             sleep 3
           done
 
-
-  e2e-tests:
-    runs-on: ubuntu-latest
-    needs: build-and-start
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Install Cypress Dependencies and Run E2E Tests
+      - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v6
         with:
           working-directory: angular-client
