@@ -1,0 +1,19 @@
+name: PR Checks
+
+on:
+  pull_request:
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        working-directory: ./angular-client
+        run: npm ci
+
+      - name: Run Unit Tests
+        working-directory: ./angular-client
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
