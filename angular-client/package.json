@@ -9,7 +9,9 @@
     "test": "ng test",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "e2e:open": "cypress open --config baseUrl=http://localhost:4200",
+    "e2e:run": "cypress run --config baseUrl=http://localhost:4200"
   },
   "private": true,
   "dependencies": {
