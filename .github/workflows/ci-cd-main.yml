@@ -27,12 +27,15 @@ jobs:
           echo "PGDATABASE=${{ secrets.PGDATABASE }}" >> .env
 
       - name: Build Docker Images
-        run: docker-compose build
+        run: docker compose build
         env:
           TELERIK_LICENSE: ${{ secrets.TELERIK_LICENSE }}
 
       - name: Start Docker Containers
-        run: docker-compose up -d
+        run: docker compose up -d
+
+      - name: Check Running Containers
+        run: docker ps
 
       - name: Wait for Backend to be Ready (Health Check)
         run: |
@@ -62,4 +65,4 @@ jobs:
 
       - name: Shut Down Docker Containers
         if: always()
-        run: docker-compose down
+        run: docker compose down
