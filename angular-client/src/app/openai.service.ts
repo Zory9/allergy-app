@@ -34,7 +34,6 @@ export class OpenAiService {
     try {
       const req = this.http.askAIGenerateRecipe(allergy, ingredients, cuisine, mealtype, cooktime);
       const data = await firstValueFrom(req);
-      console.log(data)
       return data;
     } catch (err) {
       throw err;
@@ -45,7 +44,6 @@ export class OpenAiService {
     try {
       const req = this.http.askAIModifyRecipe(allergy, recipe);
       const data = await firstValueFrom(req);
-      console.log(data)
       return data;
     } catch (err) {
       throw err;

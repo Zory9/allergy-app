@@ -11,7 +11,6 @@ const openai = new OpenAI(configuration);
 
 const textCompletion = async (req, res) => {
   const { question, allergy } = req.body;
-  console.log(req.body)
 
   if (!question || !allergy) {
     return res.status(400).json({ error: "Question and allergy are required" });
