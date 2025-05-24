@@ -10,7 +10,7 @@ Allergen Free is a smart assistant, powered by OpenAI, which is designed to help
 The app allows users to:
 
 - Ask questions about food safety using natural language.
--  Upload or take pictures of food to get allergy advice.
+- Upload or take pictures of food to get allergy advice.
 - Generate safe personalized recipes based on desired ingredients, cuisine, cooking time and mealtype.
 - Modify existing recipes by suggesting safe replacements for allergens.
 
