@@ -6,7 +6,6 @@ export class User {
   firstName?: string;
   lastName?: string;
   allergy: string;
-  severity?: string;
   constructor(
     id: number,
     username: string,
@@ -15,7 +14,6 @@ export class User {
     firstName: string,
     lastName: string,
     allergy: string,
-    severity: string
   ) {
     this.id = id ?? null;
     this.username = username ?? '';
@@ -24,6 +22,5 @@ export class User {
     this.firstName = firstName ?? '';
     this.lastName = lastName ?? '';
     this.allergy = allergy ?? '';
-    this.severity = severity ?? '';
   }
 }

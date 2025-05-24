@@ -26,6 +26,24 @@ services:
       - PGDATABASE=${PGDATABASE}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # PostgreSQL Database Service
+  db:
+    image: postgres:16
+    restart: always
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
