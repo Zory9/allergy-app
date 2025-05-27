@@ -1,9 +1,15 @@
+export interface Recipe {
+  name: string;
+  shortDesc: string;
+  time: string;
+  description: string;
+}
 export interface ModifiedRecipe {
   name: string;
-  description: string;
+  shortDesc: string;
   time: string;
   ingredients: ModifiedIngredient[];
-  instructions: string;
+  description: string;
   safe?: boolean;
 }
 

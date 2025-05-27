@@ -1,5 +1,4 @@
 const { OpenAI } = require("openai");
-const axios = require("axios");
 
 const headers = {
   Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
@@ -43,16 +42,14 @@ const recipeGeneration = async (req, res) => {
                 or when an ingredient may contain any of the allergies of the user and
                 can be dangerous for a person with the given allergy, you should not include it in the generated recipe and you should replace it with another ingredient that is suitable for the food.
                 You should answer the question in Bulgarian.
-                You should return the response in JSON format with five fields. 
-                The first field called "nameEng" containing the name of the generated recipe in English.
-                Only in the first field, the response should be in English. 
-                The second field called "name" containing the name of the generated recipe in Bulgarian. 
-                The third field called "shortDesc" containing a short description that explains the main idea 
+                You should return the response in JSON format with four fields.  
+                The first field called "name" containing the name of the generated recipe in Bulgarian. 
+                The second field called "shortDesc" containing a short description that explains the main idea 
                 of the suggested recipe in one sentence.
-                The fourth field called "description" containing the description of the recipe with 
+                The third field called "description" containing the description of the recipe with 
                 detailed instructions for its cooking in Bulgarian. Return the "description" in the form of 
                 an ordered list separated with a newline character.
-                The fifth field called "time" containing the cooking time for the food in 
+                The fourth field called "time" containing the cooking time for the food in 
                 the generated recipe in Bulgarian.
                 Always give 3 different recipe ideas, each containing the described fields. 
                 Make the recipe ideas distinct from each other.
@@ -135,7 +132,7 @@ const recipeModification = async (req, res) => {
                 You should answer the question in Bulgarian.
                 You should return the response in JSON format with five fields. 
                 The first field called "name" containing the original name of the recipe. 
-                The second field called "description" containing a short description that explains the main idea 
+                The second field called "shortDesc" containing a short description that explains the main idea 
                 of the recipe in one sentence.
                 The third field called "time" containing the cooking time for the food in the modified recipe.
                 The fourth field called "ingredients" containing an array of objects with the following fields (each object representing one ingredient):
@@ -143,8 +140,8 @@ const recipeModification = async (req, res) => {
                   - the second field called "isAllergen" stating if the ingredient is somehow related to the allergy of the user;
                   - the third field called "replacement" containing the name of the replacement for the original ingredient in the recipe - this field should be empty if the original ingredient is not related to the allergy of the user, i.e. when you decide that the isAllergen field is "false", this field should be empty;
                   - the fourth field called "quantity" containing the quantity of the ingredient in the recipe;
-                The fifth field called "instructions" containing the instructions for cooking the recipe with
-                steps for its cooking based on the new ingredients. Return the "instructions" in the form of 
+                The fifth field called "description" containing the instructions for cooking the recipe with
+                steps for its cooking based on the new ingredients. Return the "description" in the form of 
                 an ordered list separated with a newline character.
                 If you find that the recipe does not contain any ingredient that is somehow related to the allergy of the user
                 and are sure that the recipe is safe for a person with the given allergy,

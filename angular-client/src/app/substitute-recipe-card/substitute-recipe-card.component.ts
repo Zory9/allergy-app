@@ -11,7 +11,7 @@ export class SubstituteRecipeCardComponent {
   @Input() public name: string;
   @Input() public shortDesc: string;
   @Input() public cookTime: string;
-  @Input() public instructions: string;
+  @Input() public description: string;
   @Input() public safe?: boolean;
   @Input() public ingredients: ModifiedIngredient[];
   
@@ -33,7 +33,7 @@ export class SubstituteRecipeCardComponent {
   }
   
   public get parsedSteps(): string[] {
-    return this.instructions
+    return this.description
       .split('\n')
       .map(step => step.replace(/^\s*\d+\.\s*/, ''));
   }

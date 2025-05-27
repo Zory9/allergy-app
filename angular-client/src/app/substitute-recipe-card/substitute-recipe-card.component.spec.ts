@@ -35,8 +35,8 @@ describe('SubstituteRecipeCardComponent', () => {
     expect(component.btnText).toBe('Виж стъпките за приготвяне');
   });
 
-  it('should parse instructions into steps correctly', () => {
-    component.instructions = '1. Step one\n2. Step two\n3. Step three';
+  it('should parse description into steps correctly', () => {
+    component.description = '1. Step one\n2. Step two\n3. Step three';
     const parsedSteps = component.parsedSteps;
     expect(parsedSteps).toEqual(['Step one', 'Step two', 'Step three']);
   });
