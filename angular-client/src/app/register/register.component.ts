@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { eyeIcon, SVGIcon } from '@progress/kendo-svg-icons';
 import { InputType } from '@progress/kendo-angular-inputs';
-import { hasNumber, hasSpecialCharacter, hasUppercase } from '../validators';
+import { hasNumber, hasSpecialCharacter, hasUppercase } from '../utils/validators';
 import { allergies } from '../data/allergy-list';
 import { arrayToString } from '../utils/helper-methods';
 
