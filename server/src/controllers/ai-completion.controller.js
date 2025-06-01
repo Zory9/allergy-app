@@ -1,5 +1,4 @@
 const { OpenAI } = require("openai");
-const axios = require('axios');
 
 const headers = {
   Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,

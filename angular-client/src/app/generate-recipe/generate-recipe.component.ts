@@ -4,12 +4,7 @@ import { chevronLeftIcon, sparklesIcon, SVGIcon, warningTriangleIcon } from '@pr
 import { UserService } from '../user.service';
 import { OpenAiService } from '../openai.service';
 import { arrayToString, stringsToArray } from '../utils/helper-methods';
-
-export interface Recipe {
-  name: string;
-  description: string;
-  cookTime: string;
-}
+import { Recipe } from '../types/recipe';
 
 @Component({
   selector: 'app-generate-recipe',
@@ -30,7 +25,7 @@ export class GenerateRecipeComponent {
     });
   }
 
-  public recipeCards: any[] = [];
+  public recipeCards: Recipe[] = [];
   public cuisines: string[] = [
     'Българска',
     'Италианска',

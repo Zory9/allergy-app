@@ -57,8 +57,8 @@
             <!-- Loading skeletons -->
 
             <div *ngIf="modifiedRecipeCard !== undefined" class="k-d-grid k-grid-cols-1 k-gap-4 k-w-full">
-                <substitute-recipe-card [name]="modifiedRecipeCard.name" [shortDesc]="modifiedRecipeCard.description"
-                    [ingredients]="modifiedRecipeCard.ingredients" [instructions]="modifiedRecipeCard.instructions"
+                <substitute-recipe-card [name]="modifiedRecipeCard.name" [shortDesc]="modifiedRecipeCard.shortDesc"
+                    [ingredients]="modifiedRecipeCard.ingredients" [description]="modifiedRecipeCard.description"
                     [cookTime]="modifiedRecipeCard.time" [safe]="modifiedRecipeCard.safe"></substitute-recipe-card>
 
                 <hr kendoCardSeparator />

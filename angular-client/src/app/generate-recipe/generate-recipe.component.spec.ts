@@ -110,7 +110,7 @@ describe('GenerateRecipeComponent', () => {
       {
         name: 'Паста',
         shortDesc: 'Вкусна паста',
-        cookTime: '30 минути',
+        time: '30 минути',
         description: 'Вкусна паста с домати и босилек',
       },
     ];

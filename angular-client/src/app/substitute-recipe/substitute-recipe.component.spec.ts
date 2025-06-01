@@ -62,10 +62,10 @@ describe('SubstituteRecipeComponent', () => {
       Promise.resolve({
         modifiedRecipe: {
           name: 'Modified Recipe',
-          description: 'Example description',
+          shortDesc: 'Example description',
           time: '30 minutes',
           ingredients: [],
-          instructions: 'First instruction.\nSecond instruction.',
+          description: 'First instruction.\nSecond instruction.',
         },
       })
     );
@@ -79,10 +79,10 @@ describe('SubstituteRecipeComponent', () => {
     );
     expect(component.modifiedRecipeCard).toEqual({
       name: 'Modified Recipe',
-      description: 'Example description',
+      shortDesc: 'Example description',
       time: '30 minutes',
       ingredients: [],
-      instructions: 'First instruction.\nSecond instruction.',
+      description: 'First instruction.\nSecond instruction.',
     });
     expect(component.loading).toBeFalse();
   });
