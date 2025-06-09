@@ -71,7 +71,7 @@
                 <p class="k-color-subtle k-text-center k-font-size-md !k-m-0">Изчакай малко, докато AI генерира
                     рецептите...</p>
                 @for(card of [].constructor(3); track $index){
-                <kendo-card orientation="horizontal" class="!k-w-full k-m-auto">
+                <kendo-card class="!k-w-full k-m-auto">
                     <kendo-card-body>
                         <kendo-skeleton shape="text" animation="pulse" width="80%"></kendo-skeleton>
                         <kendo-skeleton shape="text" animation="pulse" width="40%"></kendo-skeleton>
@@ -79,7 +79,7 @@
                         <kendo-skeleton shape="text" animation="pulse" width="40%"></kendo-skeleton>
                     </kendo-card-body>
                     <hr kendoCardSeparator />
-                    <kendo-card-actions orientation="horizontal" layout="stretched" [style.width.px]="200">
+                    <kendo-card-actions layout="stretched">
                         <kendo-skeleton shape="text" animation="pulse" width="100%"></kendo-skeleton>
                     </kendo-card-actions>
                 </kendo-card>

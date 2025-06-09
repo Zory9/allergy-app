@@ -21,6 +21,121 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: ingredients; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ingredients (
+    id integer NOT NULL,
+    recipe_id integer,
+    original character varying,
+    is_allergen boolean,
+    replacement character varying,
+    quantity character varying
+);
+
+
+ALTER TABLE public.ingredients OWNER TO postgres;
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ingredients_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ingredients_id_seq OWNER TO postgres;
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ingredients_id_seq OWNED BY public.ingredients.id;
+
+
+--
+-- Name: modified_recipes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.modified_recipes (
+    id integer NOT NULL,
+    user_id integer,
+    name character varying,
+    shortdesc character varying,
+    cooktime character varying,
+    description text,
+    safe boolean
+);
+
+
+ALTER TABLE public.modified_recipes OWNER TO postgres;
+
+--
+-- Name: modified_recipes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.modified_recipes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.modified_recipes_id_seq OWNER TO postgres;
+
+--
+-- Name: modified_recipes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.modified_recipes_id_seq OWNED BY public.modified_recipes.id;
+
+
+--
+-- Name: recipes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.recipes (
+    id integer NOT NULL,
+    user_id integer,
+    name character varying,
+    shortdesc character varying,
+    cooktime character varying,
+    description text
+);
+
+
+ALTER TABLE public.recipes OWNER TO postgres;
+
+--
+-- Name: recipes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.recipes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.recipes_id_seq OWNER TO postgres;
+
+--
+-- Name: recipes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.recipes_id_seq OWNED BY public.recipes.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -60,10 +175,60 @@ ALTER SEQUENCE public.users_new_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: ingredients id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ingredients ALTER COLUMN id SET DEFAULT nextval('public.ingredients_id_seq'::regclass);
+
+
+--
+-- Name: modified_recipes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.modified_recipes ALTER COLUMN id SET DEFAULT nextval('public.modified_recipes_id_seq'::regclass);
+
+
+--
+-- Name: recipes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipes ALTER COLUMN id SET DEFAULT nextval('public.recipes_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_new_id_seq'::regclass);
+
+
+--
+-- Data for Name: ingredients; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ingredients (id, recipe_id, original, is_allergen, replacement, quantity) FROM stdin;
+1	2	1 cup milk	t	1 cup almond milk	1 cup
+2	2	2 eggs	f	\N	2
+3	2	1 cup flour	f	\N	1 cup
+\.
+
+
+--
+-- Data for Name: modified_recipes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.modified_recipes (id, user_id, name, shortdesc, cooktime, description, safe) FROM stdin;
+2	4	Dairy-Free Pancakes	Light pancakes without dairy ingredients	20 minutes	These pancakes are made using plant-based milk and are suitable for people with dairy allergies.	t
+\.
+
+
+--
+-- Data for Name: recipes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.recipes (id, user_id, name, shortdesc, cooktime, description) FROM stdin;
+1	3	Spaghetti Bolognese	A quick and easy pasta dish	30 minutes	This classic Italian pasta dish features a rich and hearty meat sauce served over tender spaghetti noodles.
+\.
 
 
 --
@@ -83,10 +248,55 @@ COPY public.users (id, username, email, password, firstname, lastname, allergy) 
 
 
 --
+-- Name: ingredients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ingredients_id_seq', 3, true);
+
+
+--
+-- Name: modified_recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.modified_recipes_id_seq', 2, true);
+
+
+--
+-- Name: recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.recipes_id_seq', 1, true);
+
+
+--
 -- Name: users_new_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.users_new_id_seq', 10, true);
+
+
+--
+-- Name: ingredients ingredients_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT ingredients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: modified_recipes modified_recipes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.modified_recipes
+    ADD CONSTRAINT modified_recipes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recipes recipes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipes
+    ADD CONSTRAINT recipes_pkey PRIMARY KEY (id);
 
 
 --
@@ -111,6 +321,30 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_new_username_key UNIQUE (username);
+
+
+--
+-- Name: ingredients ingredients_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT ingredients_recipe_id_fkey FOREIGN KEY (recipe_id) REFERENCES public.modified_recipes(id) ON DELETE CASCADE;
+
+
+--
+-- Name: modified_recipes modified_recipes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.modified_recipes
+    ADD CONSTRAINT modified_recipes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: recipes recipes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipes
+    ADD CONSTRAINT recipes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --

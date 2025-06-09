@@ -35,7 +35,7 @@ const textCompletion = async (req, res) => {
                 you know that it is very dangerous for a person with certain allergy to
                 eat a food that may contain the allergy as ingredient in some way.
                 You analyze each existing part of a food, so if you have information that the food 
-                might contain the allergy as an igredient even in a little form somewhere, 
+                might contain the allergy as an ingredient even in a little form somewhere, 
                 you should mark it as dangerous.
                 The questions can be in the form of full sentences or 
                 just a phrase that refers to the name of a particular food. 
